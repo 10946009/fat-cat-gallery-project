@@ -1,0 +1,84 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  outline: 0;
+  background: #000;
+}
+
+.fade {
+  transition: opacity 0.15s linear;
+}
+
+.modal-dialog {
+  transform: none;
+  margin: 0;
+  position: relative;
+  pointer-events: none;
+}
+
+.modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto;
+  background-clip: padding-box;
+  outline: 0;
+  height: 100vh;
+  width: 100vw;
+  box-sizing: content-box;
+}
+
+.modal-nav {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  right: 0;
+  box-sizing: content-box;
+  width: 100%;
+}
+
+.modal-nav-link {
+  padding: 1.5rem;
+  box-sizing: content-box;
+  display: flex;
+  flex: row;
+}
+
+.modal-nav-link form {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+
+.modal-nav-link form:hover {
+  background: #a880bb;
+}
+
+.modal-img {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.modal-img img {
+  height: 100%;
+  width: auto;
+}

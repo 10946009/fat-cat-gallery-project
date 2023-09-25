@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fat Cat Photos</title>
+    <link rel="stylesheet" href="../static/css/login.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-wrap">
+            <div class="login-bg">
+            </div>
+            <div class="login-content">
+                <p class="welcome">Signin!</p>
+                <form action="." method="POST">
+                    {% csrf_token %}
+                    <div class="login-input">
+                        <label for="">新帳號</label>
+                        <input type="text" name="username" id="username" />
+                    </div>
+                    <div class="login-input">
+                        <label for="">新密碼</label>
+                        <input type="password" name="passwd" id="passwd" />
+                    </div>
+                    <span class="login-message">{{message}}</span>
+                    <input type="submit" class="login-btn" name="signin" id="signin" value="註冊" />
+                </form>
+                <a href="/" class="signin-btn">已有帳號，回登入頁面</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

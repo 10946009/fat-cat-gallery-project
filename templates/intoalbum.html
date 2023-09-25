@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+{% load extras %}
+
+{% block content %}
+<div class="main-container">
+    <div class="title-wrap">
+        <span class="title">
+            相簿
+            <svg viewbox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" height="25" width="25" fill="#676767">
+                <path d="M18.75 36 16.6 33.85 26.5 23.95 16.6 14.05 18.75 11.9 30.8 23.95Z" />
+            </svg>
+            {{album.atitle}}
+        </span>
+        <div class="add-album" onclick="showdeleteToAlbum()">
+            <svg viewbox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" height="25" width="25" fill="#676767">
+                <path
+                    d="M19.75 33.35 24 29.1 28.25 33.35 30.35 31.25 26.1 27 30.35 22.75 28.25 20.65 24 24.9 19.75 20.65 17.65 22.75 21.9 27 17.65 31.25ZM15 39H33Q33 39 33 39Q33 39 33 39V15H15V39Q15 39 15 39Q15 39 15 39ZM10.5 11V8H17.2L19.2 6H28.8L30.8 8H37.5V11ZM15 42Q13.8 42 12.9 41.1Q12 40.2 12 39V12H36V39Q36 40.2 35.1 41.1Q34.2 42 33 42ZM15 39H33Q33 39 33 39Q33 39 33 39H15Q15 39 15 39Q15 39 15 39Z" />
+            </svg>
+            <span>刪除相簿</span>
+        </div>
+    </div>
+
+    {% if lengths == 0 %}
+    <div class="infoImage" style="background-image: url('../../static/images/wphoto.png');"></div>
+    {% else %}
+    <div class="grid js-masonry"
+        data-masonry-options='{ "itemSelector": ".grid-item", "columnWidth": ".grid-sizer", "percentPosition": "true" }'>
+        <div class="grid-sizer"></div>
+        {% for photo in photos %}
+        <div class="grid-item">
+            <div style="padding: 5px; box-sizing: content-box; cursor: pointer;">
+                <a href="/photoshow/{{photo.id}}/">
+                    <img src="{{photo.purl}}" alt="">
+                </a>
+                {% if photo.pfavorite == 1 %}
+                <div style="position: absolute; left: 10px; bottom: 10px;">
+                    <svg viewbox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" height="25" width="25" fill="#eee">
+                        <path
+                            d="M24 41.95 21.95 40.1Q13.8 32.65 8.9 27.1Q4 21.55 4 15.85Q4 11.35 7.025 8.325Q10.05 5.3 14.5 5.3Q17.05 5.3 19.55 6.525Q22.05 7.75 24 10.55Q26.2 7.75 28.55 6.525Q30.9 5.3 33.5 5.3Q37.95 5.3 40.975 8.325Q44 11.35 44 15.85Q44 21.55 39.1 27.1Q34.2 32.65 26.05 40.1Z" />
+                    </svg>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+<div class="album-modal" id="deleteAlbumModal">
+    <div class="album-modal__wrap">
+        <div class="album-modal__nav">
+            <span>刪除相簿</span>
+            <svg viewbox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" height="25" width="25" fill="#676767"
+                onclick="closedeleteToAlbum()">
+                <path
+                    d="M12.45 37.65 10.35 35.55 21.9 24 10.35 12.45 12.45 10.35 24 21.9 35.55 10.35 37.65 12.45 26.1 24 37.65 35.55 35.55 37.65 24 26.1Z" />
+            </svg>
+        </div>
+        <form action="/handleAlbum/" method="POST" name="clickalbum" id="clickalbum" style="padding: 1rem;">
+            {% csrf_token %}
+            <div>確認刪除 <b>{{album.atitle}}</b> 相簿？<br></div>
+            <div style="text-align: right; cursor: pointer; margin-top: 2rem;">
+                <span onclick="closedeleteToAlbum()">取消</span>
+                <span style="color: red; margin-left: .5rem;" onclick="deleteToAlbum('{{album.id}}')">刪除</span>
+            </div>
+            <input type="text" value="" id="phototoalbum" name="phototoalbum" hidden />
+            <input type="submit" name="submitdeleteToAlbum" id="submitdeleteToAlbum" hidden />
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    document.querySelector("#album-link").classList.add("active")
+</script>
+{% endblock %}

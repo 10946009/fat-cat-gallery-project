@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+{% load extras %}
+
+{% block content %}
+<div class="main-container" id="album">
+    <div class="title-wrap">
+        <span class="title">相簿</span>
+        <form action="/uploadalbum/" method="POST" name="uploadalbum" id="uploadalbum" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="add-album" onclick="uploadAlbum()">
+                <input type="file" multiple="true" name="" id="" accept="image/*" hidden onchange="">
+                <input type="submit" name="" id="" hidden />
+
+                <svg viewbox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" height="25" width="25" fill="#676767">
+                    <path
+                        d="M22.65 34H25.65V25.7H34V22.7H25.65V14H22.65V22.7H14V25.7H22.65ZM24 44Q19.75 44 16.1 42.475Q12.45 40.95 9.75 38.25Q7.05 35.55 5.525 31.9Q4 28.25 4 24Q4 19.8 5.525 16.15Q7.05 12.5 9.75 9.8Q12.45 7.1 16.1 5.55Q19.75 4 24 4Q28.2 4 31.85 5.55Q35.5 7.1 38.2 9.8Q40.9 12.5 42.45 16.15Q44 19.8 44 24Q44 28.25 42.45 31.9Q40.9 35.55 38.2 38.25Q35.5 40.95 31.85 42.475Q28.2 44 24 44ZM24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24ZM24 41Q31 41 36 36Q41 31 41 24Q41 17 36 12Q31 7 24 7Q17 7 12 12Q7 17 7 24Q7 31 12 36Q17 41 24 41Z" />
+                </svg>
+                <span>建立相簿</span>
+            </div>
+        </form>
+    </div>
+
+    {% if albumlenghts == 0 %}
+    <div class="infoImage" style="background-image: url('../static/images/walbum.png');"></div>
+    {% else %}
+    <div class="album-wrap">
+        {% for album in albums %}
+        <a href="/albumshow/{{album.id}}" class="album-area">
+            <div class="album-cover" style="background-image: url({{photos|extras:forloop.counter0}});"></div>
+            <span class="album-title">{{album.atitle}}</span>
+            <span style="font-size: 13px;">{{lengths|extras:forloop.counter0}} 個項目</span>
+        </a>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="album-modal" id="addAlbumModal">
+        <div class="album-modal__wrap">
+            <div class="album-modal__nav">
+                <span>建立相簿</span>
+                <svg viewbox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" height="25" width="25" fill="#676767"
+                    onclick="closeAddAlbum()">
+                    <path
+                        d="M12.45 37.65 10.35 35.55 21.9 24 10.35 12.45 12.45 10.35 24 21.9 35.55 10.35 37.65 12.45 26.1 24 37.65 35.55 35.55 37.65 24 26.1Z" />
+                </svg>
+            </div>
+
+            <form action="/uploadalbum/" method="POST" name="albumuploadform" id="albumuploadform"
+                style="padding: 1rem;" onsubmit="return albumsubmit()">
+                {% csrf_token %}
+                <input type="input" name="albumtitle" id="albumtitle" placeholder="相簿名稱" style="margin-bottom: 2rem;
+                border: none;
+                width: 100%;
+                font-size: medium" />
+                <input type="submit" name="addalbum" id="addalbum" value="建立"
+                    style="float: right; background: #fff; border: 0; cursor: pointer; color: rgb(255, 59, 216);" />
+                <span id='message' style="font-size: 12px; color: red;"></span>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    document.querySelector("#album-link").classList.add("active")
+</script>
+{% endblock %}

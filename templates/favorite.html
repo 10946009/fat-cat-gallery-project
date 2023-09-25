@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="main-container">
+    <div class="title-wrap">
+        <span class="title">收藏</span>
+    </div>
+    {% if lenghts == 0 %}
+    <div class="infoImage" style="background-image: url('../static/images/wfavorite.png');"></div>
+    {% else %}
+    <div class="grid js-masonry"
+        data-masonry-options='{ "itemSelector": ".grid-item", "columnWidth": ".grid-sizer", "percentPosition": "true" }'>
+        <div class="grid-sizer"></div>
+        {% for photo in photos %}
+        <div class="grid-item">
+            <div style="padding: 5px; box-sizing: content-box; cursor: pointer;" onclick="showPhoto()">
+                <a href="/photoshow/{{photo.id}}/">
+                    <img src="{{photo.purl}}" alt="">
+                </a>
+                {% if photo.pfavorite == 1 %}
+                <div style="position: absolute; left: 10px; bottom: 10px;">
+                    <svg viewbox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" height="25" width="25" fill="#eee">
+                        <path
+                            d="M24 41.95 21.95 40.1Q13.8 32.65 8.9 27.1Q4 21.55 4 15.85Q4 11.35 7.025 8.325Q10.05 5.3 14.5 5.3Q17.05 5.3 19.55 6.525Q22.05 7.75 24 10.55Q26.2 7.75 28.55 6.525Q30.9 5.3 33.5 5.3Q37.95 5.3 40.975 8.325Q44 11.35 44 15.85Q44 21.55 39.1 27.1Q34.2 32.65 26.05 40.1Z" />
+                    </svg>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+  document.querySelector("#favorite-link").classList.add("active")
+</script>
+{% endblock %}

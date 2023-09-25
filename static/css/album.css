@@ -1,0 +1,60 @@
+.album-wrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  align-content: stretch;
+  gap: 2rem 1rem;
+}
+
+.album-area {
+  width: calc(20% - 1rem);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+  box-sizing: content-box;
+}
+
+.album-cover {
+  height: 220px;
+  width: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+  border-radius: 10px;
+  background-position: 0 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-sizing: content-box;
+  background-color: #eee;
+  margin-bottom: 0.5rem;
+}
+
+@media screen and (max-width: 1200px) {
+  .album-area {
+    width: calc(25% - 1rem);
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .album-area {
+    width: calc(33% - 1rem);
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .album-area {
+    width: calc(50% - 1rem);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .album-area {
+    width: calc(100% - 1rem);
+  }
+}
+
+.album-title {
+  font-weight: bold;
+}
